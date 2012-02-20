@@ -27,7 +27,7 @@ module Rails3JQueryAutocomplete
         else
           search = '^' + term
         end
-        items  = model.where(method.to_sym => /#{search}/i).limit(limit).order_by(order)
+        items  = model.where(method.to_sym => /#{Regexp.escape search}/i).limit(limit).order_by(order)
       end
     end
   end
