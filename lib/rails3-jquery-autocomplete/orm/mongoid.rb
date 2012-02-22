@@ -21,13 +21,15 @@ module Rails3JQueryAutocomplete
         term           = parameters[:term]
         limit          = get_autocomplete_limit(options)
         order          = get_autocomplete_order(method, options)
-
+        
+        term = Regexp.escape term
+        
         if is_full_search
           search = '.*' + term + '.*'
         else
           search = '^' + term
         end
-        items  = model.where(method.to_sym => /#{Regexp.escape search}/i).limit(limit).order_by(order)
+        items  = model.where(method.to_sym => /#{search}/i).limit(limit).order_by(order)
       end
     end
   end
